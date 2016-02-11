@@ -17,31 +17,53 @@ namespace PostalDove
         void getInfo();
     }
     
+    struct Info
+    {
+        public string CompanyName { get; set; }
+        public string EmailLogin { get; set; }
+        public string Password { get; set; }
+        public string SmtpAddress { get; set; }
+        public int SmtpPort { get; set; }
+        public bool EnableSSL { get; set; }
+        public bool EnableHTML { get; set; }
+        public int IntervalBetween { get; set; }
+        public int QuantityForDay { get; set; }
+        public string TestAddress { get; set; }
+        public string Destination { get; set; }
+    }
+
     class BaseModel : IMailing
     {
-        protected string CompanyName { get; set; }
-        string EmailLogin { get; set; }
-        string Password { get; set; }
-        string SmtpAddress { get; set; }
-        int SmtpPort { get; set; }
-        bool EnableSSL { get; set; }
-        bool EnableHTML { get; set; }
-        int IntervalBetween { get; set; }
-        int QuantityForDay { get; set; }
-        string TestAddress { get; set; }
-        string Destination { get; set; }
+        protected Info inf = new Info();
+        
+        public BaseModel(string login, string pass, string dest, string smtpAddress, int port):this("",login,pass,smtpAddress,port,false,false,
+            10,300,login,dest)
+        {
+            inf.EmailLogin = login;
+            inf.Password = pass;
+            inf.Destination = dest;
+            inf.SmtpAddress = smtpAddress;
+            inf.SmtpPort = port;
+        }
+
+        public BaseModel(string name, string login, string pass, string smtpAddress, int port, bool EnableSSL, bool EnableHTML, 
+            int between, int quant, string testAddress, string dest)
+        {
+                
+        }
 
         public virtual void sendMail(string subj, string body, object att)
         {
-            MailAddress from = new MailAddress(this.EmailLogin, this.CompanyName);
-            MailAddress to = new MailAddress(this.Destination);
+            MailAddress from = new MailAddress(inf.EmailLogin, inf.CompanyName);
+            MailAddress to = new MailAddress(inf.Destination);
             MailMessage message = new MailMessage(from, to);
             message.Subject = subj;
             message.Body = body;
-            SmtpClient smtp = new SmtpClient(this.SmtpAddress, this.SmtpPort);
-            if (EnableSSL) smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential(this.EmailLogin, this.Password);
-            if (EnableHTML) message.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient(inf.SmtpAddress, inf.SmtpPort);
+            if (inf.EnableSSL) smtp.EnableSsl = true;
+            smtp.Credentials = new NetworkCredential(inf.EmailLogin, inf.Password);
+            if (inf.EnableHTML) message.IsBodyHtml = true;
+            //
             smtp.Send(message);
         }
 
