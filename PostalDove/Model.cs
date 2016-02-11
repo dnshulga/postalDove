@@ -16,7 +16,7 @@ namespace PostalDove
         void logging();
         void getInfo();
     }
-    
+   
     struct Info
     {
         public string CompanyName { get; set; }
@@ -36,7 +36,7 @@ namespace PostalDove
     {
         protected Info inf = new Info();
         
-        public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port):this("",login,pass,smtpAddress,port,false,false,
+        public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port):this("",login,pass,smtpAddress,port,true,false,
             10,300,login,dest)
         {
             inf.EmailLogin = login;
@@ -61,7 +61,7 @@ namespace PostalDove
             inf.TestAddress = testAddress;
             inf.Destination = dest;
         }
-        public BaseModel(){};
+        public BaseModel(){}
 
         public virtual void sendMail(string subj, string body, object att)
         {
@@ -95,11 +95,12 @@ namespace PostalDove
 
         }
 
-        event EventHandler RefreshListView; //обновить список
-        event EventHandler ClickAbout;      //посмотреть информацию "О программе"
-        event EventHandler ShowSettings;    //посмотреть настройки
-        event EventHandler DoTestSending;   //сделать тестовую отправку
-        event EventHandler ExpandForm;      //развернуть форму по клику
+        event EventHandler<EventArgs> RefreshListView; //обновить список
+        event EventHandler<EventArgs> ClickAbout;      //посмотреть информацию "О программе"
+        event EventHandler<EventArgs> ShowSettings;    //посмотреть настройки
+        event EventHandler<EventArgs> DoTestSending;   //сделать тестовую отправку
+        event EventHandler<EventArgs> ExpandForm;      //развернуть форму по клику
+        event EventHandler<EventArgs> DoMainSending;   //произвести основную рассылку
 
     }
 
@@ -109,5 +110,10 @@ namespace PostalDove
         {
 
         }
+    }
+
+    sealed class Settings
+    {
+
     }
 }

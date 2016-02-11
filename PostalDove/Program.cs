@@ -16,6 +16,17 @@ namespace PostalDove
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ///testing
+            /*BaseModel b = new BaseModel("mylogin@gmail.com", "mypass", new List<string> { "dmitriishulga95@gmail.com" }, "smtp.gmail.com", 587);
+            try
+            {
+                b.sendMail("hello", "foobar", null);
+                MessageBox.Show("Success");
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }*/
             Application.Run(new MainForm());
         }
     }
