@@ -16,7 +16,7 @@ namespace PostalDove
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ///testing
+            ///test
             /*BaseModel b = new BaseModel("mylogin@gmail.com", "mypass", new List<string> { "dmitriishulga95@gmail.com" }, "smtp.gmail.com", 587);
             try
             {
