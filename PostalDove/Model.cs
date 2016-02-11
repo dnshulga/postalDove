@@ -24,19 +24,19 @@ namespace PostalDove
         public string Password { get; set; }
         public string SmtpAddress { get; set; }
         public int SmtpPort { get; set; }
-        public bool EnableSSL { get; set; }
+        public bool EnableSSL { get; set; } 
         public bool EnableHTML { get; set; }
-        public int IntervalBetween { get; set; }
-        public int QuantityForDay { get; set; }
+        public int IntervalBetween { get; set; } //интервал в секундах между письмами
+        public int QuantityForDay { get; set; }  //ограничение писем в день
         public string TestAddress { get; set; }
-        public string Destination { get; set; }
+        public List<string> Destination { get; set; }
     }
 
     class BaseModel : IMailing
     {
         protected Info inf = new Info();
         
-        public BaseModel(string login, string pass, string dest, string smtpAddress, int port):this("",login,pass,smtpAddress,port,false,false,
+        public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port):this("",login,pass,smtpAddress,port,false,false,
             10,300,login,dest)
         {
             inf.EmailLogin = login;
@@ -47,24 +47,36 @@ namespace PostalDove
         }
 
         public BaseModel(string name, string login, string pass, string smtpAddress, int port, bool EnableSSL, bool EnableHTML, 
-            int between, int quant, string testAddress, string dest)
+            int between, int quant, string testAddress, List<string> dest)
         {
-                
+            inf.CompanyName = name;
+            inf.EmailLogin = login;
+            inf.Password = pass;
+            inf.SmtpAddress = smtpAddress;
+            inf.SmtpPort = port;
+            inf.EnableSSL = EnableSSL;
+            inf.EnableHTML = EnableHTML;
+            inf.IntervalBetween = between;
+            inf.QuantityForDay = quant;
+            inf.TestAddress = testAddress;
+            inf.Destination = dest;
         }
 
         public virtual void sendMail(string subj, string body, object att)
         {
             MailAddress from = new MailAddress(inf.EmailLogin, inf.CompanyName);
-            MailAddress to = new MailAddress(inf.Destination);
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = subj;
-            message.Body = body;
             SmtpClient smtp = new SmtpClient(inf.SmtpAddress, inf.SmtpPort);
             if (inf.EnableSSL) smtp.EnableSsl = true;
             smtp.Credentials = new NetworkCredential(inf.EmailLogin, inf.Password);
-            if (inf.EnableHTML) message.IsBodyHtml = true;
-            //
-            smtp.Send(message);
+            for (int i = 0; i < inf.Destination.Count; i++)
+            {
+                MailAddress to = new MailAddress(inf.Destination[i]);
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = subj;
+                message.Body = body;
+                if (inf.EnableHTML) message.IsBodyHtml = true;
+                smtp.Send(message);
+            }
         }
 
         public void backUPInformation()
