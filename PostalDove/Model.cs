@@ -61,6 +61,7 @@ namespace PostalDove
             inf.TestAddress = testAddress;
             inf.Destination = dest;
         }
+        public BaseModel(){};
 
         public virtual void sendMail(string subj, string body, object att)
         {
@@ -93,11 +94,18 @@ namespace PostalDove
         {
 
         }
+
+        event EventHandler RefreshListView; //обновить список
+        event EventHandler ClickAbout;      //посмотреть информацию "О программе"
+        event EventHandler ShowSettings;    //посмотреть настройки
+        event EventHandler DoTestSending;   //сделать тестовую отправку
+        event EventHandler ExpandForm;      //развернуть форму по клику
+
     }
 
     class TestSending : BaseModel
     {
-        public override void sendMail()
+        public override void sendMail(string subj, string body, object att)
         {
 
         }
