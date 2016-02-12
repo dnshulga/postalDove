@@ -20,6 +20,17 @@ namespace PostalDove
     {
         BaseModel _model = new BaseModel();
         IView _view;
-        
+
+        public Presenter(IView iview)
+        {
+            _view = iview;
+            _view.DoMainSending += new EventHandler<EventArgs>(_view_DoMainSending);
+            
+        }
+
+        private void _view_DoMainSending(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
