@@ -129,11 +129,14 @@ namespace PostalDove
         {
             try
             {
+                Info _info = new Info();
                 StreamReader sr = new StreamReader(_filePathAcc, Encoding.UTF8);
                 FieldInfo[] fi = typeof(Info).GetFields(BindingFlags.Public | BindingFlags.Instance);
+
                 foreach (FieldInfo info in fi)
                 {
-                    info.SetValue(info.Name, sr.ReadLine());
+                    if (info.FieldType == typeof(String))
+                        info.SetValue(_info, sr.ReadLine());
                 }
                 sr.Close();
             }
