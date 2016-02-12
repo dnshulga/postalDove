@@ -29,13 +29,34 @@ namespace PostalDove
         {
             InitializeComponent();
             sendBtn.Click += new EventHandler(SendBtn_Click);
+            OptionsStrip.Click += new EventHandler(OptionsStrip_Click);
+            AboutStrip.Click += new EventHandler(AboutStrip_Click);
+            testSendingStrip.Click += new EventHandler(TestSendingStrip_Click);
+        }
+
+        #region Проброс событий
+        private void TestSendingStrip_Click(object sender, EventArgs e)
+        {
+            if (testingSendingStrip != null) testingSendingStrip(this, EventArgs.Empty);
+        }
+
+        private void AboutStrip_Click(object sender, EventArgs e)
+        {
+            if (aboutStripClick != null) aboutStripClick(this, EventArgs.Empty);
+        }
+
+        private void OptionsStrip_Click(object sender, EventArgs e)
+        {
+            if (settingsStripClick != null) settingsStripClick(this, EventArgs.Empty);
         }
 
         private void SendBtn_Click(object sender, EventArgs e)
         {
             if (mainSendingStrip != null) mainSendingStrip(this, EventArgs.Empty);
         }
-
+        #endregion
+        
+        #region IMainForm
         public string Subject
         {
             get { return subjTxtBox.Text; }
@@ -63,6 +84,6 @@ namespace PostalDove
         public event EventHandler aboutStripClick;
         public event EventHandler testingSendingStrip;
         public event EventHandler mainSendingStrip;
-
+        #endregion
     }
 }
