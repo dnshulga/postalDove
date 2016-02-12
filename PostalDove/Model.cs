@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
+using System.Windows.Forms;
 
 namespace PostalDove
 {
@@ -65,18 +66,25 @@ namespace PostalDove
 
         public virtual void sendMail(string subj, string body, object att)
         {
-            MailAddress from = new MailAddress(inf.EmailLogin, inf.CompanyName);
-            SmtpClient smtp = new SmtpClient(inf.SmtpAddress, inf.SmtpPort);
-            if (inf.EnableSSL) smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential(inf.EmailLogin, inf.Password);
-            for (int i = 0; i < inf.Destination.Count; i++)
+            try
             {
-                MailAddress to = new MailAddress(inf.Destination[i]);
-                MailMessage message = new MailMessage(from, to);
-                message.Subject = subj;
-                message.Body = body;
-                if (inf.EnableHTML) message.IsBodyHtml = true;
-                smtp.Send(message);
+                MailAddress from = new MailAddress(inf.EmailLogin, inf.CompanyName);
+                SmtpClient smtp = new SmtpClient(inf.SmtpAddress, inf.SmtpPort);
+                if (inf.EnableSSL) smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential(inf.EmailLogin, inf.Password);
+                for (int i = 0; i < inf.Destination.Count; i++)
+                {
+                    MailAddress to = new MailAddress(inf.Destination[i]);
+                    MailMessage message = new MailMessage(from, to);
+                    message.Subject = subj;
+                    message.Body = body;
+                    if (inf.EnableHTML) message.IsBodyHtml = true;
+                    smtp.Send(message);
+                }
+            }
+            catch(Exception exc)
+            {
+                MessageBox.Show(exc.Message);
             }
         }
 
