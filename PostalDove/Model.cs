@@ -131,16 +131,15 @@ namespace PostalDove
             {
                 StreamReader sr = new StreamReader(_filePathAcc, Encoding.UTF8);
                 FieldInfo[] fi = typeof(Info).GetFields(BindingFlags.Public | BindingFlags.Instance);
-                MessageBox.Show(fi.Length.ToString());
                 foreach (FieldInfo info in fi)
                 {
-                    info.SetValue(info.Name,sr.ReadLine());
+                    info.SetValue(info.Name, sr.ReadLine());
                 }
                 sr.Close();
             }
             catch (Exception exc)
             {
-                MessageBox.Show(Service._errorText+exc.Message, Service._errorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Service._errorText + exc.Message, Service._errorCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
