@@ -36,7 +36,7 @@
             this.bodyTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.htmlCheckBox = new System.Windows.Forms.CheckBox();
-            this.тестоваяОтправкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testSendingStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.sendBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -45,7 +45,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.OptionsStrip,
-            this.тестоваяОтправкаToolStripMenuItem,
+            this.testSendingStrip,
             this.AboutStrip});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -115,11 +115,11 @@
             this.htmlCheckBox.Text = "Текст в формате html";
             this.htmlCheckBox.UseVisualStyleBackColor = true;
             // 
-            // тестоваяОтправкаToolStripMenuItem
+            // testSendingStrip
             // 
-            this.тестоваяОтправкаToolStripMenuItem.Name = "тестоваяОтправкаToolStripMenuItem";
-            this.тестоваяОтправкаToolStripMenuItem.Size = new System.Drawing.Size(121, 20);
-            this.тестоваяОтправкаToolStripMenuItem.Text = "Тестовая отправка";
+            this.testSendingStrip.Name = "testSendingStrip";
+            this.testSendingStrip.Size = new System.Drawing.Size(121, 20);
+            this.testSendingStrip.Text = "Тестовая отправка";
             // 
             // sendBtn
             // 
@@ -162,7 +162,7 @@
         private System.Windows.Forms.TextBox subjTxtBox;
         private System.Windows.Forms.TextBox bodyTxtBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ToolStripMenuItem тестоваяОтправкаToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testSendingStrip;
         private System.Windows.Forms.CheckBox htmlCheckBox;
         private System.Windows.Forms.Button sendBtn;
     }
