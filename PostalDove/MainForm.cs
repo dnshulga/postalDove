@@ -32,9 +32,9 @@ namespace PostalDove
             OptionsStrip.Click += new EventHandler(OptionsStrip_Click);
             AboutStrip.Click += new EventHandler(AboutStrip_Click);
             testSendingStrip.Click += new EventHandler(TestSendingStrip_Click);
-
+            this.Load += new EventHandler(MainForm_Load);
         }
-
+        
         #region Проброс событий
         private void TestSendingStrip_Click(object sender, EventArgs e)
         {
@@ -86,5 +86,10 @@ namespace PostalDove
         public event EventHandler testingSendingStrip;
         public event EventHandler mainSendingStrip;
         #endregion
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

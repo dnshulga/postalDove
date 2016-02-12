@@ -27,6 +27,7 @@ namespace PostalDove
             {
                 MessageBox.Show(exc.Message);
             }*/
+            Service.getInfo();
             Application.Run(new MainForm());
         }
     }
