@@ -16,7 +16,7 @@ namespace PostalDove
         event EventHandler<EventArgs> DoMainSending;   //произвести основную рассылку
     }
 
-    class Presenter:IView
+    class Presenter
     {
         BaseModel _model = new BaseModel();
         IView _view;
