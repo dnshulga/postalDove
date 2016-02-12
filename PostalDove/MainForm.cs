@@ -32,6 +32,7 @@ namespace PostalDove
             OptionsStrip.Click += new EventHandler(OptionsStrip_Click);
             AboutStrip.Click += new EventHandler(AboutStrip_Click);
             testSendingStrip.Click += new EventHandler(TestSendingStrip_Click);
+
         }
 
         #region Проброс событий
