@@ -153,7 +153,8 @@ namespace PostalDove
 
         void IMailing.showSettings()
         {
-            throw new NotImplementedException();
+            Settings st = new Settings();
+            st.ShowDialog();
         }
 
         void IMailing.testMail(string subj, string body, object att)
@@ -169,8 +170,10 @@ namespace PostalDove
         {
             try
             {
-                if (subj.Length == 0 || body.Length == 0)
+                if (subj.Length == 0)
                     throw new EmptySubject();
+                if (body.Length == 0)
+                    throw new EmptyBody();
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
@@ -186,7 +189,11 @@ namespace PostalDove
             catch (Exception exc)
             {
                 if (exc is EmptySubject)
-                    MessageBox.Show((exc as EmptySubject).ShowMessage());
+                    (exc as EmptySubject).ShowMessage();
+                else if (exc is EmptyBody)
+                    (exc as EmptyBody).ShowMessage();
+                else
+                    (exc as OwnExceptions).ShowMessage();
             }
         }
     }
