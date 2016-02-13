@@ -126,7 +126,23 @@ namespace PostalDove
     {
         public override void sendMail(string subj, string body, object att)
         {
-
+            try
+            {
+                MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
+                SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
+                if (Data._EnableSSL) smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
+                MailAddress to = new MailAddress(Data._TestAddress);
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = subj;
+                message.Body = body;
+                if (Data._EnableHTML) message.IsBodyHtml = true;
+                smtp.Send(message);
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
     }
 }
