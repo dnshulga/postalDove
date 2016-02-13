@@ -20,6 +20,7 @@ namespace PostalDove
         void getInfo();
 
         void showAbout();
+        void showSettings();
         void testMail(string subj, string body, object att = null);
     }
 
@@ -86,7 +87,6 @@ namespace PostalDove
         {
             try
             {
-
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
@@ -150,6 +150,11 @@ namespace PostalDove
             }
         }
 
+        void IMailing.showSettings()
+        {
+            throw new NotImplementedException();
+        }
+
         void IMailing.testMail(string subj, string body, object att)
         {
             TestSending ts = new TestSending();
@@ -163,7 +168,7 @@ namespace PostalDove
         {
 
             if (subj.Length == 0 || body.Length == 0)
-                throw Exception;
+                throw new EmptySubject();
             try
             {
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);

@@ -15,7 +15,7 @@ namespace PostalDove
         }
     }
 
-    class EmptrySubject : OwnExceptions
+    class EmptySubject : OwnExceptions
     {
         public override void ShowExc()
         {

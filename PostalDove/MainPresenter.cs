@@ -15,8 +15,7 @@ namespace PostalDove
         {
             _model = model;
             _view = view;
-
-
+            
             _view.mainSendingClick += new EventHandler(_view_mainSendingClick);
             _view.aboutStripClick += new EventHandler(_view_aboutStripClick);
             _view.testingSendingStrip += new EventHandler(_view_testingSendingStrip);
@@ -26,7 +25,7 @@ namespace PostalDove
 
         private void _view_settingsStripClick(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            _model.showSettings();
         }
 
         private void _view_getInfoLoad(object sender, EventArgs e)
