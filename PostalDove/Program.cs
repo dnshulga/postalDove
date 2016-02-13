@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PostalDove
@@ -16,17 +13,6 @@ namespace PostalDove
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            ///test
-            /*BaseModel b = new BaseModel("mylogin@gmail.com", "mypass", new List<string> { "dmitriishulga95@gmail.com" }, "smtp.gmail.com", 587);
-            try
-            {
-                b.sendMail("hello", "foobar", null);
-                MessageBox.Show("Success");
-            }
-            catch(Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-            }*/
 
             MainForm view = new MainForm();
             BaseModel model = new BaseModel();
