@@ -19,6 +19,19 @@ namespace PostalDove
 
             _view.mainSendingClick += new EventHandler(_view_mainSendingClick);
             _view.aboutStripClick += new EventHandler(_view_aboutStripClick);
+            _view.testingSendingStrip +=new EventHandler(_view_testingSendingStrip);
+            _view.getInfoLoad += new EventHandler(_view_getInfoLoad);
+            
+        }
+
+        private void _view_getInfoLoad(object sender, EventArgs e)
+        {
+            _model.getInfo();
+        }
+
+        private void _view_testingSendingStrip(object sender, EventArgs e)
+        {
+            _model.testMail(_view.Subject, _view.Body, null);
         }
 
         private void _view_aboutStripClick(object sender, EventArgs e)

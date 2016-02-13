@@ -20,6 +20,7 @@ namespace PostalDove
         void getInfo();
 
         void showAbout();
+        void testMail(string subj, string body, object att = null);
     }
 
     static class Data
@@ -38,7 +39,7 @@ namespace PostalDove
 
         static Data()
         {
-           _Destination = new List<string>();
+            _Destination = new List<string>();
         }
 
         public static void print()
@@ -148,12 +149,21 @@ namespace PostalDove
                 MessageBox.Show(exc.Message);
             }
         }
+
+        void IMailing.testMail(string subj, string body, object att)
+        {
+            TestSending ts = new TestSending();
+            ts.sendMail(subj, body, att);
+        }
     }
 
     class TestSending : BaseModel
     {
         public override void sendMail(string subj, string body, object att)
         {
+
+            if (subj.Length == 0 || body.Length == 0)
+                throw Exception;
             try
             {
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
@@ -166,6 +176,7 @@ namespace PostalDove
                 message.Body = body;
                 if (Data._EnableHTML) message.IsBodyHtml = true;
                 smtp.Send(message);
+                MessageBox.Show("Отправлено успешно на " + Data._TestAddress,"Тестовая отправка", MessageBoxButtons.OK);
             }
             catch (Exception exc)
             {
