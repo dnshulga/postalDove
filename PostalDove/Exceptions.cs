@@ -9,7 +9,11 @@ namespace PostalDove
 {
     class OwnExceptions : Exception
     {
-        public virtual string ShowExc()
+        public OwnExceptions():base(){}
+        public OwnExceptions(string message):base(message) {}
+        public OwnExceptions(string message, Exception innerExc):base(message,innerExc) {}
+
+        public virtual string ShowMessage()
         {
             return base.Message;
         }
@@ -17,7 +21,7 @@ namespace PostalDove
 
     sealed class EmptySubject : OwnExceptions
     {
-        public override string ShowExc()
+        public override string ShowMessage()
         {
             return "Не заполнено поле темы сообщения";
         }
@@ -25,7 +29,7 @@ namespace PostalDove
 
     sealed class EmptyBody : OwnExceptions
     {
-        public override string ShowExc()
+        public override string ShowMessage()
         {
             return "Не заполнено поле текста сообщения";
         }
