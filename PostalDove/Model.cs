@@ -18,6 +18,8 @@ namespace PostalDove
         void backUPInformation();
         void logging();
         void getInfo();
+
+        void showAbout();
     }
 
     static class Data
@@ -102,6 +104,12 @@ namespace PostalDove
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        public void showAbout()
+        {
+            AboutForm s = new AboutForm();
+            s.ShowDialog();
         }
 
         public void backUPInformation()

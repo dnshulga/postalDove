@@ -27,9 +27,13 @@ namespace PostalDove
             {
                 MessageBox.Show(exc.Message);
             }*/
-            BaseModel b = new BaseModel();
-            b.getInfo();
-            Application.Run(new MainForm());
+
+            MainForm view = new MainForm();
+            BaseModel model = new BaseModel();
+
+            MainPresenter presenter = new MainPresenter(model, view);
+
+            Application.Run(view);
         }
     }
 }

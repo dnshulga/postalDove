@@ -12,14 +12,14 @@ namespace PostalDove
 {
     public interface IMainForm
     {
-        string Subject { set; get; }
-        string Body { set; get; }
-        bool isHtml { set; get; }
+        string Subject { get; }
+        string Body { get; }
+        bool isHtml { get; }
         
         event EventHandler settingsStripClick;
         event EventHandler aboutStripClick;
         event EventHandler testingSendingStrip;
-        event EventHandler mainSendingStrip;
+        event EventHandler mainSendingClick;
         event EventHandler getInfoLoad;
     }
 
@@ -53,7 +53,7 @@ namespace PostalDove
 
         private void SendBtn_Click(object sender, EventArgs e)
         {
-            if (mainSendingStrip != null) mainSendingStrip(this, EventArgs.Empty);
+            if (mainSendingClick != null) mainSendingClick(this, EventArgs.Empty);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -66,30 +66,22 @@ namespace PostalDove
         public string Subject
         {
             get { return subjTxtBox.Text; }
-            set { subjTxtBox.Text = value; }
         }
 
         public string Body
         {
             get { return bodyTxtBox.Text; }
-            set { bodyTxtBox.Text = value; }
         }
 
         public bool isHtml
         {
             get { return htmlCheckBox.Checked; }
-            set { htmlCheckBox.Checked = value; }
         }
-
-        public void getInfoAccount()
-        {
-            
-        }
-
+        
         public event EventHandler settingsStripClick;
         public event EventHandler aboutStripClick;
         public event EventHandler testingSendingStrip;
-        public event EventHandler mainSendingStrip;
+        public event EventHandler mainSendingClick;
         public event EventHandler getInfoLoad;
         #endregion
     }
