@@ -33,6 +33,21 @@ namespace PostalDove
         public static int _QuantityForDay;
         public static string _TestAddress;
         public static List<string> _Destination;
+
+        static Data()
+        {
+           _Destination = new List<string>();
+        }
+
+        public static void print()
+        {
+            var flds = typeof(Data).GetFields(BindingFlags.Static | BindingFlags.Public);
+            foreach (var fld in flds)
+            {
+                object value = fld.GetValue(typeof(Data));
+                MessageBox.Show(value.ToString());
+            }
+        }
     }
 
     class BaseModel : IMailing
@@ -68,6 +83,7 @@ namespace PostalDove
         {
             try
             {
+
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
@@ -114,6 +130,10 @@ namespace PostalDove
                 Data._TestAddress = sr.ReadLine();
                 Data._EnableHTML = Convert.ToBoolean(sr.ReadLine());
                 sr.Close();
+                StreamReader sr1 = new StreamReader("database.txt", Encoding.UTF8);
+                while (!sr1.EndOfStream)
+                    Data._Destination.Add(sr1.ReadLine());
+                sr1.Close();
             }
             catch (Exception exc)
             {
