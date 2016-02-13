@@ -9,17 +9,25 @@ namespace PostalDove
 {
     class OwnExceptions : Exception
     {
-        public virtual void ShowExc()
+        public virtual string ShowExc()
         {
-            MessageBox.Show(base.Message);
+            return base.Message;
         }
     }
 
-    class EmptySubject : OwnExceptions
+    sealed class EmptySubject : OwnExceptions
     {
-        public override void ShowExc()
+        public override string ShowExc()
         {
-            MessageBox.Show("");
+            return "Не заполнено поле темы сообщения";
+        }
+    }
+
+    sealed class EmptyBody : OwnExceptions
+    {
+        public override string ShowExc()
+        {
+            return "Не заполнено поле текста сообщения";
         }
     }
 }

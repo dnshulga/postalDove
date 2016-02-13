@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Windows.Forms;
 using System.Reflection;
+using System.Threading;
 
 namespace PostalDove
 {
@@ -166,27 +167,35 @@ namespace PostalDove
     {
         public override void sendMail(string subj, string body, object att)
         {
-
-            if (subj.Length == 0 || body.Length == 0)
-                throw new EmptySubject();
             try
             {
-                MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
-                SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
-                if (Data._EnableSSL) smtp.EnableSsl = true;
-                smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
-                MailAddress to = new MailAddress(Data._TestAddress);
-                MailMessage message = new MailMessage(from, to);
-                message.Subject = subj;
-                message.Body = body;
-                if (Data._EnableHTML) message.IsBodyHtml = true;
-                smtp.Send(message);
-                MessageBox.Show("Отправлено успешно на " + Data._TestAddress,"Тестовая отправка", MessageBoxButtons.OK);
+                if (subj.Length == 0 || body.Length == 0)
+                    throw new EmptySubject();
+                try
+                {
+                    MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
+                    SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
+                    if (Data._EnableSSL) smtp.EnableSsl = true;
+                    smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
+                    MailAddress to = new MailAddress(Data._TestAddress);
+                    MailMessage message = new MailMessage(from, to);
+                    message.Subject = subj;
+                    message.Body = body;
+                    if (Data._EnableHTML) message.IsBodyHtml = true;
+                    smtp.Send(message);
+                    MessageBox.Show("Отправлено успешно на " + Data._TestAddress, "Тестовая отправка", MessageBoxButtons.OK);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
             }
-            catch (Exception exc)
+            catch(EmptySubject exc)
             {
-                MessageBox.Show(exc.Message);
+                MessageBox.Show(exc.ShowExc());
             }
+
+            
         }
     }
 }
