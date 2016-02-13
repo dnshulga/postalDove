@@ -19,9 +19,14 @@ namespace PostalDove
 
             _view.mainSendingClick += new EventHandler(_view_mainSendingClick);
             _view.aboutStripClick += new EventHandler(_view_aboutStripClick);
-            _view.testingSendingStrip +=new EventHandler(_view_testingSendingStrip);
+            _view.testingSendingStrip += new EventHandler(_view_testingSendingStrip);
             _view.getInfoLoad += new EventHandler(_view_getInfoLoad);
-            
+            _view.settingsStripClick += new EventHandler(_view_settingsStripClick);
+        }
+
+        private void _view_settingsStripClick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void _view_getInfoLoad(object sender, EventArgs e)
