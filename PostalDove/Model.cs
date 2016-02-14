@@ -110,7 +110,7 @@ namespace PostalDove
                     message.Body = mb.Body;
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
-                    isNotFirstLetter = true;
+                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо)
                     
                 }
             }
@@ -122,7 +122,7 @@ namespace PostalDove
                     (exc as EmptySubject).ShowMessage();
                 else
                 {
-                    
+                    (exc as OwnExceptions).ShowMessage();
                 }
             }
         }
