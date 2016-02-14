@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace PostalDove
 {
@@ -35,7 +35,9 @@ namespace PostalDove
 
         private void _view_testingSendingStrip(object sender, EventArgs e)
         {
-            _model.testMail(_view.Subject, _view.Body, null);
+            var thread = new Thread(new ParameterizedThreadStart(ForwardingThreadTestSending));
+            MessageMembers mb = new MessageMembers(_view.Subject, _view.Body, null, _view.actBtnTest);
+            thread.Start(mb);
         }
 
         private void _view_aboutStripClick(object sender, EventArgs e)
@@ -43,9 +45,15 @@ namespace PostalDove
             _model.showAbout();
         }
 
+        private void ForwardingThreadTestSending(object member)
+        {
+            MessageMembers mm = member as MessageMembers;
+            _model.testMail(mm);
+        }
+
         private void _view_mainSendingClick(object sender, EventArgs e)
         {
-            _model.sendMail(_view.Subject, _view.Body, null);
+            //_model.sendMail(_view.Subject, _view.Body, null);
         }
 
     }

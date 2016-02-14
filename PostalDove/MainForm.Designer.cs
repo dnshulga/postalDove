@@ -30,13 +30,13 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.OptionsStrip = new System.Windows.Forms.ToolStripMenuItem();
+            this.testSendingStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.subjTxtBox = new System.Windows.Forms.TextBox();
             this.bodyTxtBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.htmlCheckBox = new System.Windows.Forms.CheckBox();
-            this.testSendingStrip = new System.Windows.Forms.ToolStripMenuItem();
             this.sendBtn = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +58,12 @@
             this.OptionsStrip.Name = "OptionsStrip";
             this.OptionsStrip.Size = new System.Drawing.Size(79, 20);
             this.OptionsStrip.Text = "Настройки";
+            // 
+            // testSendingStrip
+            // 
+            this.testSendingStrip.Name = "testSendingStrip";
+            this.testSendingStrip.Size = new System.Drawing.Size(121, 20);
+            this.testSendingStrip.Text = "Тестовая отправка";
             // 
             // AboutStrip
             // 
@@ -115,12 +121,6 @@
             this.htmlCheckBox.Text = "Текст в формате html";
             this.htmlCheckBox.UseVisualStyleBackColor = true;
             // 
-            // testSendingStrip
-            // 
-            this.testSendingStrip.Name = "testSendingStrip";
-            this.testSendingStrip.Size = new System.Drawing.Size(121, 20);
-            this.testSendingStrip.Text = "Тестовая отправка";
-            // 
             // sendBtn
             // 
             this.sendBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -145,6 +145,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Postal Dove";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -15,6 +15,7 @@ namespace PostalDove
         string Subject { get; }
         string Body { get; }
         bool isHtml { get; }
+        ToolStripMenuItem actBtnTest { get; }
         
         event EventHandler settingsStripClick;
         event EventHandler aboutStripClick;
@@ -78,6 +79,11 @@ namespace PostalDove
             get { return htmlCheckBox.Checked; }
         }
         
+        public ToolStripMenuItem actBtnTest
+        {
+            get { return testSendingStrip; }
+        }
+
         public event EventHandler settingsStripClick;
         public event EventHandler aboutStripClick;
         public event EventHandler testingSendingStrip;

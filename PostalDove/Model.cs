@@ -15,14 +15,14 @@ namespace PostalDove
 {
     public interface IMailing
     {
-        void sendMail(string subj, string body, object attachment = null);
+        void sendMail(MessageMembers mb);
         void backUPInformation();
         void logging();
         void getInfo();
 
         void showAbout();
         void showSettings();
-        void testMail(string subj, string body, object att = null);
+        void testMail(MessageMembers mb);
     }
 
     static class Data
@@ -84,7 +84,7 @@ namespace PostalDove
         }
         public BaseModel() { }
 
-        public virtual void sendMail(string subj, string body, object att)
+        public virtual void sendMail(MessageMembers mb)
         {
             try
             {
@@ -96,8 +96,8 @@ namespace PostalDove
                 {
                     MailAddress to = new MailAddress(Data._Destination[i]);
                     MailMessage message = new MailMessage(from, to);
-                    message.Subject = subj;
-                    message.Body = body;
+                    message.Subject = mb.Subject;
+                    message.Body = mb.Body;
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
                 }
@@ -151,40 +151,42 @@ namespace PostalDove
             }
         }
 
-        void IMailing.showSettings()
+        public void showSettings()
         {
             Settings st = new Settings();
             st.ShowDialog();
         }
 
-        void IMailing.testMail(string subj, string body, object att)
+        public void testMail(MessageMembers mb)
         {
             TestSending ts = new TestSending();
-            ts.sendMail(subj, body, att);
+            ts.sendMail(mb);
         }
     }
 
     class TestSending : BaseModel
     {
-        public override void sendMail(string subj, string body, object att)
+        public override void sendMail(MessageMembers md)
         {
             try
             {
-                if (subj.Length == 0)
+                if (md.Subject.Length == 0)
                     throw new EmptySubject();
-                if (body.Length == 0)
+                if (md.Body.Length == 0)
                     throw new EmptyBody();
+                md.actBtnTest.Enabled = false;
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
                 smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
                 MailAddress to = new MailAddress(Data._TestAddress);
                 MailMessage message = new MailMessage(from, to);
-                message.Subject = subj;
-                message.Body = body;
+                message.Subject = md.Subject;
+                message.Body = md.Body;
                 if (Data._EnableHTML) message.IsBodyHtml = true;
                 smtp.Send(message);
                 MessageBox.Show("Отправлено успешно на " + Data._TestAddress, "Тестовая отправка", MessageBoxButtons.OK);
+                md.actBtnTest.Enabled = true;
             }
             catch (Exception exc)
             {
@@ -196,5 +198,6 @@ namespace PostalDove
                     (exc as OwnExceptions).ShowMessage();
             }
         }
+        
     }
 }
