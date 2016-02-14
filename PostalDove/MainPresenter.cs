@@ -15,7 +15,7 @@ namespace PostalDove
         {
             _model = model;
             _view = view;
-            
+
             _view.mainSendingClick += new EventHandler(_view_mainSendingClick);
             _view.aboutStripClick += new EventHandler(_view_aboutStripClick);
             _view.testingSendingStrip += new EventHandler(_view_testingSendingStrip);
@@ -48,7 +48,7 @@ namespace PostalDove
         private void _view_mainSendingClick(object sender, EventArgs e)
         {
             var thread = new Thread(new ParameterizedThreadStart(ForwardingThreadMainSending));
-            MessageMembers mb = new MessageMembers(_view.Subject,_view.Body, null, null);
+            MessageMembers mb = new MessageMembers(_view.Subject, _view.Body, null, null);
             thread.Start(mb);
         }
 

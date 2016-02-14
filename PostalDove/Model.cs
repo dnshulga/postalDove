@@ -57,6 +57,9 @@ namespace PostalDove
 
     class BaseModel : IMailing
     {
+        bool isNotFirstLetter = false;
+
+
         public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port) : this("", login, pass, smtpAddress, port, true, false,
             10, 300, login, dest)
         {
@@ -96,14 +99,19 @@ namespace PostalDove
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
                 smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
+
                 for (int i = 0; i < Data._Destination.Count; i++)
                 {
+                    if (isNotFirstLetter)
+                        Thread.Sleep(60000); //соблюдать интервал между письмами, начиная со второго
                     MailAddress to = new MailAddress(Data._Destination[i]);
                     MailMessage message = new MailMessage(from, to);
                     message.Subject = mb.Subject;
                     message.Body = mb.Body;
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
+                    isNotFirstLetter = true;
+                    
                 }
             }
             catch (Exception exc)
@@ -113,7 +121,9 @@ namespace PostalDove
                 else if (exc is EmptySubject)
                     (exc as EmptySubject).ShowMessage();
                 else
-                    (exc as OwnExceptions).ShowMessage();
+                {
+                    
+                }
             }
         }
 
@@ -207,6 +217,6 @@ namespace PostalDove
                     (exc as OwnExceptions).ShowMessage();
             }
         }
-        
+
     }
 }
