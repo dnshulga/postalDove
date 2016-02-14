@@ -45,16 +45,25 @@ namespace PostalDove
             _model.showAbout();
         }
 
+        private void _view_mainSendingClick(object sender, EventArgs e)
+        {
+            var thread = new Thread(new ParameterizedThreadStart(ForwardingThreadMainSending));
+            MessageMembers mb = new MessageMembers(_view.Subject,_view.Body, null, null);
+            thread.Start(mb);
+        }
+
+        #region Пробросы потоков
         private void ForwardingThreadTestSending(object member)
         {
             MessageMembers mm = member as MessageMembers;
             _model.testMail(mm);
         }
 
-        private void _view_mainSendingClick(object sender, EventArgs e)
+        private void ForwardingThreadMainSending(object member)
         {
-            //_model.sendMail(_view.Subject, _view.Body, null);
+            MessageMembers mm = member as MessageMembers;
+            _model.sendMail(mm);
         }
-
+        #endregion
     }
 }

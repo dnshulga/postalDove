@@ -88,6 +88,10 @@ namespace PostalDove
         {
             try
             {
+                if (mb.Subject.Length == 0)
+                    throw new EmptySubject();
+                if (mb.Body.Length == 0)
+                    throw new EmptyBody();
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
@@ -104,7 +108,12 @@ namespace PostalDove
             }
             catch (Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                if (exc is EmptyBody)
+                    (exc as EmptyBody).ShowMessage();
+                else if (exc is EmptySubject)
+                    (exc as EmptySubject).ShowMessage();
+                else
+                    (exc as OwnExceptions).ShowMessage();
             }
         }
 
