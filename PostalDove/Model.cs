@@ -15,7 +15,7 @@ namespace PostalDove
 {
     public interface IMailing
     {
-        void sendMail(MessageMembers mb);
+        void sendMail(MessageMembers member, ListView listView);
         void backUPInformation();
         void logging();
         void getInfo();
@@ -87,14 +87,18 @@ namespace PostalDove
         }
         public BaseModel() { }
 
-        public virtual void sendMail(MessageMembers mb)
+        public virtual void sendMail(MessageMembers mb, ListView listView)
         {
+            bool _isSuccess = false;
+            string _exceptionMessage = null;
+            Process pr = new Process(Data._Destination);
             try
             {
                 if (mb.Subject.Length == 0)
                     throw new EmptySubject();
                 if (mb.Body.Length == 0)
                     throw new EmptyBody();
+                pr.Show();
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
@@ -110,8 +114,10 @@ namespace PostalDove
                     message.Body = mb.Body;
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
-                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо)
-                    
+                    _isSuccess = true;
+                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) 
+
+                    pr.AddToList(listView, _isSuccess, _exceptionMessage);
                 }
             }
             catch (Exception exc)
@@ -122,8 +128,9 @@ namespace PostalDove
                     (exc as EmptySubject).ShowMessage();
                 else
                 {
-                    (exc as OwnExceptions).ShowMessage();
+                    _exceptionMessage = exc.Message;
                 }
+                pr.AddToList(listView, _isSuccess, _exceptionMessage);
             }
         }
 
@@ -185,7 +192,7 @@ namespace PostalDove
 
     class TestSending : BaseModel
     {
-        public override void sendMail(MessageMembers md)
+        public override void sendMail(MessageMembers md, ListView listView = null)
         {
             try
             {

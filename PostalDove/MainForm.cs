@@ -17,6 +17,7 @@ namespace PostalDove
         bool isHtml { get; }
         ToolStripMenuItem actBtnTest { get; }
         
+        
         event EventHandler settingsStripClick;
         event EventHandler aboutStripClick;
         event EventHandler testingSendingStrip;
@@ -83,6 +84,7 @@ namespace PostalDove
         {
             get { return testSendingStrip; }
         }
+        
 
         public event EventHandler settingsStripClick;
         public event EventHandler aboutStripClick;

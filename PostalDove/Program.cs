@@ -16,8 +16,9 @@ namespace PostalDove
 
             MainForm view = new MainForm();
             BaseModel model = new BaseModel();
+            Process journal = new Process(Data._Destination);
 
-            MainPresenter presenter = new MainPresenter(model, view);
+            MainPresenter presenter = new MainPresenter(model, view, journal);
 
             Application.Run(view);
         }
