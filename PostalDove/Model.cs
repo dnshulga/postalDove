@@ -15,7 +15,7 @@ namespace PostalDove
 {
     public interface IMailing
     {
-        void sendMail(MessageMembers member, ListView listView);
+        void sendMail(MessageMembers mb);
         void backUPInformation();
         void logging();
         void getInfo();
@@ -59,7 +59,7 @@ namespace PostalDove
     {
         bool isNotFirstLetter = false;
 
-
+        #region ctors
         public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port) : this("", login, pass, smtpAddress, port, true, false,
             10, 300, login, dest)
         {
@@ -85,39 +85,37 @@ namespace PostalDove
             Data._TestAddress = testAddress;
             Data._Destination = dest;
         }
-        public BaseModel() { }
-
-        public virtual void sendMail(MessageMembers mb, ListView listView)
+        public BaseModel()
         {
-            bool _isSuccess = false;
-            string _exceptionMessage = null;
-            Process pr = new Process(Data._Destination);
+                
+        }
+        #endregion
+
+        public virtual void sendMail(MessageMembers mb)
+        {
             try
             {
                 if (mb.Subject.Length == 0)
                     throw new EmptySubject();
                 if (mb.Body.Length == 0)
                     throw new EmptyBody();
-                pr.Show();
+
                 MailAddress from = new MailAddress(Data._EmailLogin, Data._CompanyName);
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
                 smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
-
+                
                 for (int i = 0; i < Data._Destination.Count; i++)
                 {
                     if (isNotFirstLetter)
-                        Thread.Sleep(60000); //соблюдать интервал между письмами, начиная со второго
+                        Thread.Sleep(Data._IntervalBetween * 1000); //соблюдать интервал между письмами, начиная со второго
                     MailAddress to = new MailAddress(Data._Destination[i]);
                     MailMessage message = new MailMessage(from, to);
                     message.Subject = mb.Subject;
                     message.Body = mb.Body;
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
-                    _isSuccess = true;
-                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) 
-
-                    pr.AddToList(listView, _isSuccess, _exceptionMessage);
+                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) */       
                 }
             }
             catch (Exception exc)
@@ -128,9 +126,8 @@ namespace PostalDove
                     (exc as EmptySubject).ShowMessage();
                 else
                 {
-                    _exceptionMessage = exc.Message;
+                    throw new OwnExceptions();
                 }
-                pr.AddToList(listView, _isSuccess, _exceptionMessage);
             }
         }
 
@@ -192,7 +189,7 @@ namespace PostalDove
 
     class TestSending : BaseModel
     {
-        public override void sendMail(MessageMembers md, ListView listView = null)
+        public override void sendMail(MessageMembers md)
         {
             try
             {

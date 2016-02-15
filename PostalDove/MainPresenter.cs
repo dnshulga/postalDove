@@ -7,13 +7,11 @@ namespace PostalDove
     {
         readonly IMailing _model;
         readonly IMainForm _view;
-        readonly IProcess _journal;
 
-        public MainPresenter(IMailing model, IMainForm view, IProcess journal)
+        public MainPresenter(IMailing model, IMainForm view)
         {
             _model = model;
             _view = view;
-            _journal = journal;
 
 
             _view.mainSendingClick += new EventHandler(_view_mainSendingClick);
@@ -52,7 +50,7 @@ namespace PostalDove
             thread.Start(mb);
         }
 
-        #region Пробросы потоков
+        #region Пробросы потоков //Надо избавиться
         private void ForwardingThreadTestSending(object member)
         {
             MessageMembers mm = member as MessageMembers;
@@ -62,8 +60,9 @@ namespace PostalDove
         private void ForwardingThreadMainSending(object member)
         {
             MessageMembers mm = member as MessageMembers;
-            _model.sendMail(mm,_journal.listView);
+            _model.sendMail(mm);
         }
+
         #endregion
     }
 }
