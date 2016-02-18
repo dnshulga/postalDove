@@ -12,14 +12,15 @@ namespace PostalDove
 {
     public interface IMailing
     {
-        void threadOfMainSending(MessageMembers mb);
         void backUPInformation();
         void logging();
         void getInfo();
 
         void showAbout();
         void showSettings();
+
         void threadOfTestSending(MessageMembers mb);
+        void threadOfMainSending(MessageMembers mb);
     }
 
     static class Data
@@ -55,6 +56,8 @@ namespace PostalDove
     class BaseModel : IMailing
     {
         bool isNotFirstLetter = false;
+        Journal j = new Journal();
+
 
         #region ctors
         public BaseModel(string login, string pass, List<string> dest, string smtpAddress, int port) : this("", login, pass, smtpAddress, port, true, false,
@@ -90,6 +93,7 @@ namespace PostalDove
 
         public virtual void sendMail(object objMember)
         {
+            j.Show();
             MessageMembers mb = objMember as MessageMembers;
             try
             {
@@ -114,6 +118,8 @@ namespace PostalDove
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
                     isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) */       
+                    
+                    j.addToList(); //почему виснет?
                 }
             }
             catch (Exception exc)

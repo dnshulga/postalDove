@@ -18,7 +18,6 @@ namespace PostalDove
             BaseModel model = new BaseModel();
 
             MainPresenter presenter = new MainPresenter(model, view);
-
             Application.Run(view);
         }
     }
