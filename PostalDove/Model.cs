@@ -118,8 +118,9 @@ namespace PostalDove
                     if (Data._EnableHTML) message.IsBodyHtml = true;
                     smtp.Send(message);
                     isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) */       
+
+                    j.addToList(); //виснет
                     
-                    j.addToList(); //почему виснет?
                 }
             }
             catch (Exception exc)

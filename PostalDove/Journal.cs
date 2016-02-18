@@ -11,8 +11,8 @@ namespace PostalDove
 
         public void addToList()
         {
-            for (int i = 0; i < 5; i++)
-                listViewJournal.Items.Add(i.ToString());
+            listViewJournal.Items.Add("вход в ListView");
+            listViewJournal.Refresh();
         }
     }
 }
