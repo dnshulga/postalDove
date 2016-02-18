@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
@@ -15,14 +12,14 @@ namespace PostalDove
 {
     public interface IMailing
     {
-        void sendMail(MessageMembers mb);
+        void threadOfMainSending(MessageMembers mb);
         void backUPInformation();
         void logging();
         void getInfo();
 
         void showAbout();
         void showSettings();
-        void testMail(MessageMembers mb);
+        void threadOfTestSending(MessageMembers mb);
     }
 
     static class Data
@@ -91,8 +88,9 @@ namespace PostalDove
         }
         #endregion
 
-        public virtual void sendMail(MessageMembers mb)
+        public virtual void sendMail(object objMember)
         {
+            MessageMembers mb = objMember as MessageMembers;
             try
             {
                 if (mb.Subject.Length == 0)
@@ -180,17 +178,33 @@ namespace PostalDove
             st.ShowDialog();
         }
 
-        public void testMail(MessageMembers mb)
+        public void testMail(object objMember)
         {
+            MessageMembers mb = objMember as MessageMembers;
             TestSending ts = new TestSending();
             ts.sendMail(mb);
         }
+
+        #region Пробросы потоков
+        public void threadOfMainSending(MessageMembers mb)
+        {
+            var thread = new Thread(new ParameterizedThreadStart(sendMail));
+            thread.Start(mb);
+        }
+
+        public void threadOfTestSending(MessageMembers mb)
+        {
+            var thread = new Thread(new ParameterizedThreadStart(testMail));
+            thread.Start(mb);
+        }
+        #endregion
     }
 
     class TestSending : BaseModel
     {
-        public override void sendMail(MessageMembers md)
+        public override void sendMail(object objMember)
         {
+            MessageMembers md = objMember as MessageMembers;
             try
             {
                 if (md.Subject.Length == 0)

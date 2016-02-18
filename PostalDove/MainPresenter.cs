@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 
 namespace PostalDove
 {
@@ -33,9 +32,8 @@ namespace PostalDove
 
         private void _view_testingSendingStrip(object sender, EventArgs e)
         {
-            var thread = new Thread(new ParameterizedThreadStart(ForwardingThreadTestSending));
             MessageMembers mb = new MessageMembers(_view.Subject, _view.Body, null, _view.actBtnTest);
-            thread.Start(mb);
+            _model.threadOfTestSending(mb);
         }
 
         private void _view_aboutStripClick(object sender, EventArgs e)
@@ -45,24 +43,8 @@ namespace PostalDove
 
         private void _view_mainSendingClick(object sender, EventArgs e)
         {
-            var thread = new Thread(new ParameterizedThreadStart(ForwardingThreadMainSending));
             MessageMembers mb = new MessageMembers(_view.Subject, _view.Body, null, null);
-            thread.Start(mb);
+            _model.threadOfMainSending(mb);
         }
-
-        #region Пробросы потоков //Надо избавиться
-        private void ForwardingThreadTestSending(object member)
-        {
-            MessageMembers mm = member as MessageMembers;
-            _model.testMail(mm);
-        }
-
-        private void ForwardingThreadMainSending(object member)
-        {
-            MessageMembers mm = member as MessageMembers;
-            _model.sendMail(mm);
-        }
-
-        #endregion
     }
 }
