@@ -87,13 +87,13 @@ namespace PostalDove
         }
         public BaseModel()
         {
-                
+
         }
         #endregion
 
         public virtual void sendMail(object objMember)
         {
-            j.Show();
+           
             MessageMembers mb = objMember as MessageMembers;
             try
             {
@@ -106,22 +106,25 @@ namespace PostalDove
                 SmtpClient smtp = new SmtpClient(Data._SmtpAddress, Data._SmtpPort);
                 if (Data._EnableSSL) smtp.EnableSsl = true;
                 smtp.Credentials = new NetworkCredential(Data._EmailLogin, Data._Password);
-                
-                for (int i = 0; i < Data._Destination.Count; i++)
-                {
-                    if (isNotFirstLetter)
-                        Thread.Sleep(Data._IntervalBetween * 1000); //соблюдать интервал между письмами, начиная со второго
-                    MailAddress to = new MailAddress(Data._Destination[i]);
-                    MailMessage message = new MailMessage(from, to);
-                    message.Subject = mb.Subject;
-                    message.Body = mb.Body;
-                    if (Data._EnableHTML) message.IsBodyHtml = true;
-                    smtp.Send(message);
-                    isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) */       
 
-                    j.addToList(); //виснет
-                    
-                }
+                ThreadPool.QueueUserWorkItem(delegate
+                {
+                    for (int i = 0; i < Data._Destination.Count; i++)
+                    {
+                        if (isNotFirstLetter)
+                            Thread.Sleep(Data._IntervalBetween * 1000); //соблюдать интервал между письмами, начиная со второго
+                        MailAddress to = new MailAddress(Data._Destination[i]);
+                        MailMessage message = new MailMessage(from, to);
+                        message.Subject = mb.Subject;
+                        message.Body = mb.Body;
+                        if (Data._EnableHTML) message.IsBodyHtml = true;
+                        smtp.Send(message);
+                        isNotFirstLetter = true; //для thread.Sleep() выше (уже не первое письмо) */       
+
+                        j.Invoke((MethodInvoker)(() => j.addToList())); //не виснет, йоу
+
+                    }
+                });
             }
             catch (Exception exc)
             {
@@ -167,11 +170,11 @@ namespace PostalDove
                 Data._QuantityForDay = Convert.ToInt32(sr.ReadLine());
                 Data._TestAddress = sr.ReadLine();
                 Data._EnableHTML = Convert.ToBoolean(sr.ReadLine());
-                sr.Close();
+                sr.Dispose(); sr.Close();
                 StreamReader sr1 = new StreamReader("database.txt", Encoding.UTF8);
                 while (!sr1.EndOfStream)
                     Data._Destination.Add(sr1.ReadLine());
-                sr1.Close();
+                sr1.Dispose(); sr1.Close();
             }
             catch (Exception exc)
             {
@@ -196,6 +199,7 @@ namespace PostalDove
         public void threadOfMainSending(MessageMembers mb)
         {
             var thread = new Thread(new ParameterizedThreadStart(sendMail));
+            j.Show();
             thread.Start(mb);
         }
 
