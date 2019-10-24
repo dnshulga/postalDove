@@ -1,0 +1,16 @@
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\bin\Release\spamer.exe.config
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\bin\Release\spamer.exe.manifest
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\bin\Release\spamer.application
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\bin\Release\spamer.exe
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\bin\Release\spamer.pdb
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.csproj.ResolveComReference.cache
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.About.resources
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.Main.resources
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.OptionsYourMail.resources
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.Properties.Resources.resources
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.csproj.GenerateResource.Cache
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.TrustInfo.xml
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.exe.manifest
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.application
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.exe
+C:\Users\Dmitry\Desktop\proj\spamer2\spamer\obj\Release\spamer.pdb

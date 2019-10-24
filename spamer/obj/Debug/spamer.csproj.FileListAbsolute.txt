@@ -1,0 +1,28 @@
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\bin\Debug\spamer.exe.config
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\bin\Debug\spamer.exe
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\bin\Debug\spamer.pdb
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.csprojResolveAssemblyReference.cache
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.Form1.resources
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.Properties.Resources.resources
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.csproj.GenerateResource.Cache
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.exe
+c:\users\dmitry\documents\visual studio 2012\Projects\spamer\spamer\obj\Debug\spamer.pdb
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\bin\Debug\spamer.exe.config
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.exe
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.pdb
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\bin\Debug\spamer.exe
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\bin\Debug\spamer.pdb
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.Form1.resources
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.Properties.Resources.resources
+C:\Users\Dmitry\Documents\Visual Studio 2012\Projects\spamer2\spamer\obj\Debug\spamer.csproj.GenerateResource.Cache
+C:\Users\Dmitry\Desktop\spamer2\spamer\bin\Debug\spamer.exe
+C:\Users\Dmitry\Desktop\spamer2\spamer\bin\Debug\spamer.exe.config
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.Properties.Resources.resources
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.csproj.GenerateResource.Cache
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.exe
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.pdb
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.csprojResolveAssemblyReference.cache
+C:\Users\Dmitry\Desktop\spamer2\spamer\bin\Debug\spamer.pdb
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.Main.resources
+C:\Users\Dmitry\Desktop\spamer2\spamer\obj\Debug\spamer.OptionsYourMail.resources
